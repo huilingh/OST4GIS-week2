@@ -60,6 +60,29 @@
 
       var addMarkers = function(map) {};
 
+      var myIcon = L.icon({
+      iconUrl: 'dental.png',
+      iconSize: [35, 35],
+      iconAnchor: [22, 94],
+      popupAnchor: [-3, -76],
+});
+
+      let newHealth = [];
+      newHealth[0] = Object.keys(healthCenters[0]);
+
+      for (i = 0; i < healthCenters.length; i++) {
+        newHealth.push(Object.values(healthCenters[i]));
+      }
+
+      for (i = 1; i < newHealth.length; i++) {
+        if (newHealth[i][5] >= 19140 && newHealth[i][5] <= 19149 && newHealth[i][8] === 'N/A') {
+        L.marker([newHealth[i][1], newHealth[i][0]]).addTo(map).bindPopup("Name: " + newHealth[i][3]).openPopup();}
+
+        if (newHealth[i][5] >= 19140 && newHealth[i][5] <= 19149 && newHealth[i][8] !== 'N/A') {
+        L.marker([newHealth[i][1], newHealth[i][0]], {icon: myIcon}).addTo(map).bindPopup(
+          "Name: " + newHealth[i][3] + "; " + "Dental Number: " + newHealth[i][8]).openPopup();}
+      }
+
       /* =====================
 
       End code
